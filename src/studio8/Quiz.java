@@ -26,7 +26,16 @@ public class Quiz {
 	}
 	
 	public void takeQuiz() {
-		//FIXME
+		int pointsEarned = 0;
+		for (int i = 0; i < questions.length; i++) {
+			questions[i].displayPrompt();
+			String givenAnswer = getUserAnswer();
+			questions[i].checkAnswer(givenAnswer);
+			System.out.println("Points earned for this question: " + questions[i].checkAnswer(givenAnswer));
+			pointsEarned = pointsEarned + questions[i].checkAnswer(givenAnswer);
+		}
+		System.out.println("Total points earned: " + pointsEarned);
+		System.out.println("Total number of points available: " + getTotalPoints());
 	}
 	
 	public static void main(String[] args) {
@@ -37,8 +46,11 @@ public class Quiz {
 
 		choices = new String[] {"instance variables", "git", "methods", "eclipse"};
 		Question selectAll = new SelectAllQuestion("Select all of the following that can be found within a class:", "13", choices);
-
-		Question[] questions = {q, multipleChoice, selectAll}; //create and add more questions!
+		
+		choices = new String[] {"Selena Gomez", "Ronaldo", "Messi", "Kim Kardashian"};
+		Question instaChoice = new MultipleChoiceQuestion("Who is the most followed person on Instagram?", "2", 1, choices);
+	
+		Question[] questions = {q, multipleChoice, selectAll, instaChoice};
 		
 		Quiz studio8quiz = new Quiz(questions);
 		studio8quiz.takeQuiz();
